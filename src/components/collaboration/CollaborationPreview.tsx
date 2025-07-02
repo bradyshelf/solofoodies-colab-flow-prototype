@@ -48,7 +48,7 @@ const CollaborationPreview = ({
   };
   return <div className="w-full">
       <Card className="lg:sticky lg:top-20">
-        <CardContent className="p-4 px-[15px]">
+        <CardContent className="p-4 px-[15px] py-[24px]">
           <h3 className="font-semibold text-gray-900 mb-4 text-base">Vista previa</h3>
           <div className="bg-gray-900 rounded-lg p-5 text-white space-y-3">
             <div className="flex items-center space-x-2">
