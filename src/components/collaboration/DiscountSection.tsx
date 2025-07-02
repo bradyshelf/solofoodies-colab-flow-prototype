@@ -24,7 +24,7 @@ const DiscountSection = ({
           <h3 className="font-semibold text-gray-900">Descuento</h3>
         </div>
         
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-center gap-4">
           <button
             onClick={() => onDiscountTypeChange('percentage')}
             className={`px-3 py-2 rounded-lg text-sm font-medium ${
