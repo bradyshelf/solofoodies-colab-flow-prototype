@@ -1,7 +1,6 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
-import { Label } from '@/components/ui/label';
 import { Percent } from 'lucide-react';
 
 interface DiscountSectionProps {
@@ -48,10 +47,12 @@ const DiscountSection = ({
           </button>
         </div>
         
-        <div>
-          <Label className="text-sm font-medium mb-2 block">
-            Valor: {discountValue[0]}{discountType === 'percentage' ? '%' : '€'}
-          </Label>
+        <div className="space-y-4">
+          <div className="text-center">
+            <div className="text-4xl font-bold text-gray-900">
+              {discountValue[0]}{discountType === 'percentage' ? '%' : '€'}
+            </div>
+          </div>
           <Slider
             value={discountValue}
             onValueChange={onDiscountValueChange}
