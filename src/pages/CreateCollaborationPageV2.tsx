@@ -129,11 +129,11 @@ const CreateCollaborationPageV2 = () => {
         </div>
       </div>
 
-      <div className="px-3 py-4 max-w-4xl mx-auto">
-        {/* Mobile: Single column, Desktop: Two columns with tighter spacing */}
-        <div className="flex flex-col lg:flex-row gap-4">
+      <div className="px-3 py-3 max-w-5xl mx-auto">
+        {/* Mobile: Single column, Tablet/Desktop: Two columns */}
+        <div className="flex flex-col md:flex-row gap-4">
           {/* Main Form */}
-          <div className="flex-1 space-y-4">
+          <div className="flex-1 space-y-3">
             <CollaborationTypeSection
               collaborationType={collaborationType}
               onCollaborationTypeChange={setCollaborationType}
@@ -166,8 +166,8 @@ const CreateCollaborationPageV2 = () => {
             />
           </div>
 
-          {/* Preview - More compact on desktop, bottom on mobile */}
-          <div className="lg:w-72 mt-4 lg:mt-0">
+          {/* Preview - Bottom on mobile, Right side on tablet/desktop */}
+          <div className="md:w-80 mt-2 md:mt-0">
             <CollaborationPreview
               collaborationType={collaborationType}
               selectedLocations={selectedLocations}
