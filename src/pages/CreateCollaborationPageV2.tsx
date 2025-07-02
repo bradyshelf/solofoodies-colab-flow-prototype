@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -114,13 +115,13 @@ const CreateCollaborationPageV2 = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4 sticky top-0 z-10">
-        <div className="flex items-center space-x-4">
+      <div className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10">
+        <div className="flex items-center space-x-3">
           <button 
             onClick={handleBackNavigation}
-            className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
+            className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center"
           >
-            <ArrowLeft className="w-5 h-5 text-gray-600" />
+            <ArrowLeft className="w-4 h-4 text-gray-600" />
           </button>
           <h1 className="text-lg font-semibold text-gray-900">
             {editingId ? 'Editar Colaboración' : 'Crear Colaboración'}
@@ -128,55 +129,60 @@ const CreateCollaborationPageV2 = () => {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 p-4 max-w-6xl mx-auto">
-        {/* Main Form */}
-        <div className="flex-1 space-y-6">
-          <CollaborationTypeSection
-            collaborationType={collaborationType}
-            onCollaborationTypeChange={setCollaborationType}
-          />
+      <div className="px-3 py-4 max-w-4xl mx-auto">
+        {/* Mobile: Single column, Desktop: Two columns with tighter spacing */}
+        <div className="flex flex-col lg:flex-row gap-4">
+          {/* Main Form */}
+          <div className="flex-1 space-y-4">
+            <CollaborationTypeSection
+              collaborationType={collaborationType}
+              onCollaborationTypeChange={setCollaborationType}
+            />
 
-          <LocationSection
-            selectedLocations={selectedLocations}
-            locations={locations}
-            onLocationToggle={toggleLocation}
-          />
+            <LocationSection
+              selectedLocations={selectedLocations}
+              locations={locations}
+              onLocationToggle={toggleLocation}
+            />
 
-          <ParticipantsSection
-            companionCount={companionCount}
-            minFollowerCount={minFollowerCount}
-            onCompanionCountChange={setCompanionCount}
-            onMinFollowerCountChange={setMinFollowerCount}
-          />
+            <ParticipantsSection
+              companionCount={companionCount}
+              minFollowerCount={minFollowerCount}
+              onCompanionCountChange={setCompanionCount}
+              onMinFollowerCountChange={setMinFollowerCount}
+            />
 
-          <DiscountSection
-            discountType={discountType}
-            discountValue={discountValue}
-            onDiscountTypeChange={setDiscountType}
-            onDiscountValueChange={setDiscountValue}
-          />
+            <DiscountSection
+              discountType={discountType}
+              discountValue={discountValue}
+              onDiscountTypeChange={setDiscountType}
+              onDiscountValueChange={setDiscountValue}
+            />
 
-          <DaysSection
-            selectedDays={selectedDays}
-            days={days}
-            onDayToggle={toggleDay}
-          />
+            <DaysSection
+              selectedDays={selectedDays}
+              days={days}
+              onDayToggle={toggleDay}
+            />
+          </div>
+
+          {/* Preview - More compact on desktop, bottom on mobile */}
+          <div className="lg:w-72 mt-4 lg:mt-0">
+            <CollaborationPreview
+              collaborationType={collaborationType}
+              selectedLocations={selectedLocations}
+              locations={locations}
+              companionCount={companionCount[0]}
+              minFollowerCount={minFollowerCount[0]}
+              discountType={discountType}
+              discountValue={discountValue[0]}
+              selectedDays={selectedDays}
+              isFormValid={isFormValid}
+              onCreateCollaboration={handleCreateCollaboration}
+              isEditMode={!!editingId}
+            />
+          </div>
         </div>
-
-        {/* Live Preview */}
-        <CollaborationPreview
-          collaborationType={collaborationType}
-          selectedLocations={selectedLocations}
-          locations={locations}
-          companionCount={companionCount[0]}
-          minFollowerCount={minFollowerCount[0]}
-          discountType={discountType}
-          discountValue={discountValue[0]}
-          selectedDays={selectedDays}
-          isFormValid={isFormValid}
-          onCreateCollaboration={handleCreateCollaboration}
-          isEditMode={!!editingId}
-        />
       </div>
     </div>
   );
