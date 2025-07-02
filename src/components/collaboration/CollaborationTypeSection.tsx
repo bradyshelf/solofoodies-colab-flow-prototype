@@ -23,7 +23,7 @@ const CollaborationTypeSection = ({
                   <div className="text-sm text-gray-500">Define las condiciones y recibe solicitudes de foodies</div>
                 </div>
               </div>
-              {collaborationType === 'public' && <div className="w-2 h-2 bg-green-500 rounded-full"></div>}
+              {collaborationType === 'public'}
             </div>
           </div>
 
