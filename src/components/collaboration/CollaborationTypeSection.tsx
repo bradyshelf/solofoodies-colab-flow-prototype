@@ -12,7 +12,7 @@ const CollaborationTypeSection = ({
       <CardContent className="p-4">
         <h3 className="font-semibold text-gray-900 mb-3">Tipo de Colaboración</h3>
         
-        <div className="space-y-11 py-0">
+        <div className="space-y-11">
           {/* Public Option */}
           <div onClick={() => onCollaborationTypeChange('public')} className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${collaborationType === 'public' ? 'border-green-500 bg-green-50' : 'border-gray-200 bg-white hover:border-gray-300'}`}>
             <div className="flex items-center justify-between">
