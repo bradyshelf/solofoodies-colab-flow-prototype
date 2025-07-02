@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Percent } from 'lucide-react';
@@ -31,7 +32,7 @@ const DiscountSection = ({
         
         <div className="space-y-11">
           <div className="text-center">
-            <div className="text-4xl font-bold text-gray-900">
+            <div className="text-6xl font-bold text-gray-900">
               {discountValue[0]}{discountType === 'percentage' ? '%' : '€'}
             </div>
           </div>
