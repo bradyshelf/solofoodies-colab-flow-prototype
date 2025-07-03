@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -47,7 +46,7 @@ const ParticipantsSection = ({
             </Button>
             <div className="text-center px-4 flex-1">
               <div className="text-xl font-bold text-gray-900">{companionCount[0]}</div>
-              <div className="text-xs text-orange-500">acompañantes</div>
+              <div className="text-xs text-orange-500">acompañantes addicional</div>
             </div>
             <Button variant="ghost" size="icon" onClick={handleCompanionIncrement} disabled={companionCount[0] >= 10} className="w-8 h-8 rounded-full bg-white hover:bg-gray-100 text-gray-700 disabled:opacity-50 shadow-sm flex-shrink-0">
               <Plus className="w-4 h-4" />
