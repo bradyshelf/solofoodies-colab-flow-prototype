@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Info } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -103,7 +102,7 @@ const CreateCollaborationPageV2 = () => {
       }
     });
   };
-  const isFormValid = selectedLocations.length > 0 && selectedDays.length > 0;
+  const isFormValid = selectedLocations.length > 0 && selectedDays.length > 0 && description.trim().length > 0;
 
   return (
     <div className="min-h-screen bg-white">
