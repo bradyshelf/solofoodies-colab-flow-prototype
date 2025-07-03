@@ -1,8 +1,10 @@
+
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Info } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import LocationSection from '@/components/collaboration/LocationSection';
 import ParticipantsSection from '@/components/collaboration/ParticipantsSection';
+import FollowersSection from '@/components/collaboration/FollowersSection';
 import DiscountSection from '@/components/collaboration/DiscountSection';
 import DaysSection from '@/components/collaboration/DaysSection';
 import DescriptionSection from '@/components/collaboration/DescriptionSection';
@@ -134,7 +136,9 @@ const CreateCollaborationPageV2 = () => {
         <div className="space-y-3 mb-4">
           <LocationSection selectedLocations={selectedLocations} locations={locations} onLocationToggle={toggleLocation} />
 
-          <ParticipantsSection companionCount={companionCount} minFollowerCount={minFollowerCount} onCompanionCountChange={setCompanionCount} onMinFollowerCountChange={setMinFollowerCount} />
+          <FollowersSection minFollowerCount={minFollowerCount} onMinFollowerCountChange={setMinFollowerCount} />
+
+          <ParticipantsSection companionCount={companionCount} onCompanionCountChange={setCompanionCount} />
 
           <DiscountSection discountType={discountType} discountValue={discountValue} onDiscountTypeChange={setDiscountType} onDiscountValueChange={setDiscountValue} />
 
