@@ -17,13 +17,36 @@ interface LocationSectionProps {
 
 const LocationSection = ({ selectedLocations, locations, onLocationToggle }: LocationSectionProps) => {
   const shouldScroll = locations.length > 3;
+  const allSelected = selectedLocations.length === locations.length;
+
+  const handleSelectAll = () => {
+    if (allSelected) {
+      // Deselect all - remove all locations
+      selectedLocations.forEach(locationId => onLocationToggle(locationId));
+    } else {
+      // Select all - add missing locations
+      locations.forEach(location => {
+        if (!selectedLocations.includes(location.id)) {
+          onLocationToggle(location.id);
+        }
+      });
+    }
+  };
 
   return (
     <Card>
       <CardContent className="p-4">
-        <div className="flex items-center space-x-3 mb-4">
-          <MapPin className="w-5 h-5 text-orange-500" />
-          <h3 className="font-semibold text-gray-900">Ubicación ({selectedLocations.length})</h3>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-3">
+            <MapPin className="w-5 h-5 text-orange-500" />
+            <h3 className="font-semibold text-gray-900">Ubicación ({selectedLocations.length})</h3>
+          </div>
+          <button
+            onClick={handleSelectAll}
+            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+          >
+            {allSelected ? 'Deseleccionar todo' : 'Seleccionar todo'}
+          </button>
         </div>
         
         {shouldScroll ? (
