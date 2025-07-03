@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -32,14 +33,14 @@ const ParticipantsSection = ({
     return count.toString();
   };
   return <Card>
-      <CardContent className="p-4 space-y-6">
+      <CardContent className="p-3 space-y-4">
         <div className="flex items-center space-x-3">
           <Users className="w-5 h-5 text-orange-500" />
           <h3 className="font-semibold text-gray-900">Participantes</h3>
         </div>
         
         <div className="w-full">
-          <Label className="text-sm font-medium mb-3 block">Acompañantes máx por foodie</Label>
+          <Label className="text-sm font-medium mb-2 block">Acompañantes máx por foodie</Label>
           <div className="bg-gray-50 rounded-xl p-3 flex items-center justify-between w-full">
             <Button variant="ghost" size="icon" onClick={handleCompanionDecrement} disabled={companionCount[0] <= 0} className="w-8 h-8 rounded-full bg-white hover:bg-gray-100 text-gray-700 disabled:opacity-50 shadow-sm flex-shrink-0">
               <Minus className="w-4 h-4" />
@@ -54,8 +55,8 @@ const ParticipantsSection = ({
           </div>
         </div>
         
-        <div className="py-[20px]">
-          <Label className="text-sm font-medium mb-3 block">
+        <div className="py-2">
+          <Label className="text-sm font-medium mb-2 block">
             Mínimo seguidores: {formatFollowerCount(minFollowerCount[0])}
           </Label>
           <div className="space-y-3">
