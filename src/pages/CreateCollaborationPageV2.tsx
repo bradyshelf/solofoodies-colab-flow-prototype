@@ -123,7 +123,6 @@ const CreateCollaborationPageV2 = () => {
           <div className="flex items-center space-x-3">
             <Info className="w-5 h-5 text-blue-600" />
             <div>
-              <h3 className="font-medium text-blue-900">Colaboración Pública</h3>
               <p className="text-sm text-blue-700 mt-1">
                 Define las condiciones de tu colaboración y recibe solicitudes de foodies interesados
               </p>
