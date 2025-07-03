@@ -1,4 +1,5 @@
 
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -10,7 +11,7 @@ interface DescriptionSectionProps {
 }
 
 const DescriptionSection = ({ description, onDescriptionChange }: DescriptionSectionProps) => {
-  const maxLength = 400;
+  const maxLength = 800;
   const remainingChars = maxLength - description.length;
 
   return (
@@ -44,3 +45,4 @@ const DescriptionSection = ({ description, onDescriptionChange }: DescriptionSec
 };
 
 export default DescriptionSection;
+
