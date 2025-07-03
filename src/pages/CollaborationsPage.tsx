@@ -13,6 +13,7 @@ interface Collaboration {
   discount: { value: number; type: string };
   dateRange?: { from: Date; to: Date };
   availableDays: string[];
+  description?: string;
   createdAt: Date;
 }
 
@@ -36,6 +37,7 @@ const CollaborationsPage = () => {
         discount: location.state.discount || { value: 100, type: 'percentage' },
         dateRange: location.state.dateRange,
         availableDays: location.state.availableDays || [],
+        description: location.state.description || '',
         createdAt: new Date()
       };
       
@@ -61,6 +63,7 @@ const CollaborationsPage = () => {
               companionCount: location.state.companionCount || collab.companionCount,
               discount: location.state.discount || collab.discount,
               availableDays: location.state.availableDays || collab.availableDays,
+              description: location.state.description || collab.description,
               // Keep the original creation date
               createdAt: collab.createdAt
             };
@@ -112,6 +115,7 @@ const CollaborationsPage = () => {
         companionCount: collab.companionCount,
         discount: collab.discount,
         availableDays: collab.availableDays,
+        description: collab.description,
         editingId: collab.id
       }
     });
@@ -172,6 +176,9 @@ const CollaborationsPage = () => {
                         <h3 className="font-semibold text-gray-900 mb-1">
                           Colaboración {collab.type === 'public' ? 'pública' : 'privada'}
                         </h3>
+                        {collab.description && (
+                          <p className="text-sm text-gray-600 mb-2">{collab.description}</p>
+                        )}
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className="text-xs text-gray-500">
