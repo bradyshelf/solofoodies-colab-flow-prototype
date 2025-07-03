@@ -106,7 +106,7 @@ const CreateCollaborationPageV2 = () => {
 
       <div className="px-3 py-3 max-w-7xl mx-auto">
         {/* Info Header */}
-        <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg py-[3px]">
+        <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg py-[7px]">
           <div className="flex items-center space-x-3">
             <Info className="w-5 h-5 text-blue-600" />
             <div>
