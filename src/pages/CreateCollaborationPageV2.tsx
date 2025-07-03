@@ -42,6 +42,10 @@ const CreateCollaborationPageV2 = () => {
     id: 'sede-central',
     name: 'Sede Central',
     address: 'Calle Gran Via, 45'
+  }, {
+    id: 'local-madrid',
+    name: 'Local Madrid',
+    address: 'Calle Alcalá, 123'
   }];
   const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   const toggleLocation = (locationId: string) => {
