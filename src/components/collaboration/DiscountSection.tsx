@@ -31,13 +31,13 @@ const DiscountSection = ({
 
   return (
     <Card>
-      <CardContent className="p-4 space-y-4">
-        <div className="flex items-center space-x-3">
+      <CardContent className="p-4">
+        <div className="flex items-center space-x-3 mb-4">
           <Percent className="w-5 h-5 text-orange-500" />
           <h3 className="font-semibold text-gray-900">Descuento</h3>
         </div>
         
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4 mb-4">
           <button 
             onClick={() => handleDiscountTypeChange('percentage')} 
             className={`px-3 py-2 rounded-lg text-sm font-medium ${
@@ -60,9 +60,9 @@ const DiscountSection = ({
           </button>
         </div>
         
-        <div className="space-y-11">
+        <div className="space-y-4">
           <div className="text-center">
-            <div className="text-6xl font-bold text-gray-900">
+            <div className="text-4xl font-bold text-gray-900">
               {discountValue[0]}{discountType === 'percentage' ? '%' : '€'}
             </div>
           </div>
