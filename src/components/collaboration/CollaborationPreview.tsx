@@ -114,7 +114,6 @@ const CollaborationPreview = ({
             disabled={!isFormValid} 
             className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium flex items-center justify-center space-x-2 text-sm"
           >
-            <Check className="w-4 h-4" />
             <span>{getButtonText()}</span>
           </Button>
         </CardContent>
