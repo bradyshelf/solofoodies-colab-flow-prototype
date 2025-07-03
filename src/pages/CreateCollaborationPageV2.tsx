@@ -11,7 +11,7 @@ const CreateCollaborationPageV2 = () => {
   const location = useLocation();
 
   // Form state - removed collaborationType
-  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+  const [selectedLocations, setSelectedLocations] = useState<string[]>(['local-valencia']);
   const [companionCount, setCompanionCount] = useState([1]);
   const [minFollowerCount, setMinFollowerCount] = useState([10000]);
   const [discountType, setDiscountType] = useState<'percentage' | 'fixed'>('percentage');
@@ -22,7 +22,7 @@ const CreateCollaborationPageV2 = () => {
   // Pre-populate form if in edit mode
   useEffect(() => {
     if (location.state?.editMode) {
-      setSelectedLocations(location.state.selectedLocations || []);
+      setSelectedLocations(location.state.selectedLocations || ['local-valencia']);
       setCompanionCount([location.state.companionCount || 1]);
       setDiscountType(location.state.discount?.type || 'percentage');
       setDiscountValue([location.state.discount?.value || 100]);
