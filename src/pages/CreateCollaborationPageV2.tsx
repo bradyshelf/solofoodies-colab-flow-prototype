@@ -12,7 +12,7 @@ const CreateCollaborationPageV2 = () => {
 
   // Form state - removed collaborationType
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
-  const [companionCount, setCompanionCount] = useState([2]);
+  const [companionCount, setCompanionCount] = useState([1]);
   const [minFollowerCount, setMinFollowerCount] = useState([10000]);
   const [discountType, setDiscountType] = useState<'percentage' | 'fixed'>('percentage');
   const [discountValue, setDiscountValue] = useState([100]);
@@ -23,7 +23,7 @@ const CreateCollaborationPageV2 = () => {
   useEffect(() => {
     if (location.state?.editMode) {
       setSelectedLocations(location.state.selectedLocations || []);
-      setCompanionCount([location.state.companionCount || 2]);
+      setCompanionCount([location.state.companionCount || 1]);
       setDiscountType(location.state.discount?.type || 'percentage');
       setDiscountValue([location.state.discount?.value || 100]);
       setSelectedDays(location.state.availableDays || []);
