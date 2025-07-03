@@ -117,7 +117,7 @@ const CreateCollaborationPageV2 = () => {
         </div>
       </div>
 
-      <div className="px-3 py-3 max-w-4xl mx-auto">
+      <div className="px-3 py-3 max-w-2xl mx-auto">
         {/* Info Header */}
         <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg py-[7px]">
           <div className="flex items-center space-x-3">
@@ -130,8 +130,8 @@ const CreateCollaborationPageV2 = () => {
           </div>
         </div>
 
-        {/* Main Form - Two column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+        {/* Main Form - Single column layout */}
+        <div className="space-y-3 mb-4">
           <LocationSection selectedLocations={selectedLocations} locations={locations} onLocationToggle={toggleLocation} />
 
           <ParticipantsSection companionCount={companionCount} minFollowerCount={minFollowerCount} onCompanionCountChange={setCompanionCount} onMinFollowerCountChange={setMinFollowerCount} />
@@ -140,9 +140,7 @@ const CreateCollaborationPageV2 = () => {
 
           <DaysSection selectedDays={selectedDays} days={days} onDayToggle={toggleDay} />
 
-          <div className="md:col-span-2">
-            <DescriptionSection description={description} onDescriptionChange={setDescription} />
-          </div>
+          <DescriptionSection description={description} onDescriptionChange={setDescription} />
         </div>
 
         {/* Preview - Always at bottom */}
