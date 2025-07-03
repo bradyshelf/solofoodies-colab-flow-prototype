@@ -5,9 +5,7 @@ import LocationSection from '@/components/collaboration/LocationSection';
 import ParticipantsSection from '@/components/collaboration/ParticipantsSection';
 import DiscountSection from '@/components/collaboration/DiscountSection';
 import DaysSection from '@/components/collaboration/DaysSection';
-import DescriptionSection from '@/components/collaboration/DescriptionSection';
 import CollaborationPreview from '@/components/collaboration/CollaborationPreview';
-
 const CreateCollaborationPageV2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,7 +17,6 @@ const CreateCollaborationPageV2 = () => {
   const [discountType, setDiscountType] = useState<'percentage' | 'fixed'>('percentage');
   const [discountValue, setDiscountValue] = useState([100]);
   const [selectedDays, setSelectedDays] = useState<string[]>(['Lunes', 'Martes', 'Miércoles', 'Jueves']);
-  const [description, setDescription] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
 
   // Pre-populate form if in edit mode
@@ -30,11 +27,9 @@ const CreateCollaborationPageV2 = () => {
       setDiscountType(location.state.discount?.type || 'percentage');
       setDiscountValue([location.state.discount?.value || 100]);
       setSelectedDays(location.state.availableDays || []);
-      setDescription(location.state.description || '');
       setEditingId(location.state.editingId || null);
     }
   }, [location.state]);
-
   const locations = [{
     id: 'local-valencia',
     name: 'Local Valencia',
@@ -76,7 +71,6 @@ const CreateCollaborationPageV2 = () => {
         type: discountType
       },
       availableDays: selectedDays,
-      description,
       editingId
     };
     console.log(editingId ? 'Updating collaboration:' : 'Creating collaboration:', collaborationData);
@@ -96,15 +90,12 @@ const CreateCollaborationPageV2 = () => {
           type: discountType
         },
         availableDays: selectedDays,
-        description,
         editingId
       }
     });
   };
   const isFormValid = selectedLocations.length > 0 && selectedDays.length > 0;
-
-  return (
-    <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10">
         <div className="flex items-center space-x-3">
@@ -117,7 +108,7 @@ const CreateCollaborationPageV2 = () => {
         </div>
       </div>
 
-      <div className="px-3 py-3 max-w-4xl mx-auto">
+      <div className="px-3 py-3 max-w-7xl mx-auto">
         {/* Info Header */}
         <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg py-[7px]">
           <div className="flex items-center space-x-3">
@@ -131,28 +122,9 @@ const CreateCollaborationPageV2 = () => {
           </div>
         </div>
 
-        {/* Main Form - Two column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-          <LocationSection selectedLocations={selectedLocations} locations={locations} onLocationToggle={toggleLocation} />
-
-          <ParticipantsSection companionCount={companionCount} minFollowerCount={minFollowerCount} onCompanionCountChange={setCompanionCount} onMinFollowerCountChange={setMinFollowerCount} />
-
-          <DiscountSection discountType={discountType} discountValue={discountValue} onDiscountTypeChange={setDiscountType} onDiscountValueChange={setDiscountValue} />
-
-          <DaysSection selectedDays={selectedDays} days={days} onDayToggle={toggleDay} />
-
-          <div className="md:col-span-2">
-            <DescriptionSection description={description} onDescriptionChange={setDescription} />
-          </div>
-        </div>
-
-        {/* Preview - Always at bottom */}
-        <div className="w-full">
-          <CollaborationPreview collaborationType="public" selectedLocations={selectedLocations} locations={locations} companionCount={companionCount[0]} minFollowerCount={minFollowerCount[0]} discountType={discountType} discountValue={discountValue[0]} selectedDays={selectedDays} isFormValid={isFormValid} onCreateCollaboration={handleCreateCollaboration} isEditMode={!!editingId} />
-        </div>
+        {/* Mobile: Single column, Tablet/Desktop: Grid + Preview */}
+        
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default CreateCollaborationPageV2;
