@@ -1,6 +1,7 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
-import { Percent } from 'lucide-react';
+import { Percent, DollarSign } from 'lucide-react';
 interface DiscountSectionProps {
   discountType: 'percentage' | 'fixed';
   discountValue: number[];
@@ -32,11 +33,13 @@ const DiscountSection = ({
         </div>
         
         <div className="flex items-center justify-center gap-4 mb-4">
-          <button onClick={() => handleDiscountTypeChange('percentage')} className={`px-3 py-2 rounded-lg text-sm font-medium ${discountType === 'percentage' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
-            Porcentaje
+          <button onClick={() => handleDiscountTypeChange('percentage')} className={`px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-2 ${discountType === 'percentage' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
+            <Percent className="w-4 h-4" />
+            <span>Porcentaje</span>
           </button>
-          <button onClick={() => handleDiscountTypeChange('fixed')} className={`px-3 py-2 rounded-lg text-sm font-medium ${discountType === 'fixed' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
-            Cantidad fija
+          <button onClick={() => handleDiscountTypeChange('fixed')} className={`px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-2 ${discountType === 'fixed' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
+            <DollarSign className="w-4 h-4" />
+            <span>Cantidad fija</span>
           </button>
         </div>
         

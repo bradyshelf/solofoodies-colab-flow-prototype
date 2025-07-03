@@ -1,7 +1,6 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Globe, MapPin, Users, Percent, Clock, Check, UserCheck } from 'lucide-react';
+import { Globe, MapPin, Users, Percent, DollarSign, Clock, Check, UserCheck } from 'lucide-react';
 
 interface Location {
   id: string;
@@ -95,7 +94,11 @@ const CollaborationPreview = ({
             </div>
 
             <div className="flex items-center space-x-2">
-              <Percent className="w-4 h-4 text-orange-400" />
+              {discountType === 'percentage' ? (
+                <Percent className="w-4 h-4 text-orange-400" />
+              ) : (
+                <DollarSign className="w-4 h-4 text-orange-400" />
+              )}
               <span className="text-sm">{discountValue}{discountType === 'percentage' ? '%' : '€'} Descuento</span>
             </div>
 
