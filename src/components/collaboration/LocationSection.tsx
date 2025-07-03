@@ -1,7 +1,8 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { MapPin, Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { MapPin, Check, Plus } from 'lucide-react';
 
 interface Location {
   id: string;
@@ -108,6 +109,14 @@ const LocationSection = ({ selectedLocations, locations, onLocationToggle }: Loc
             ))}
           </div>
         )}
+        
+        <Button
+          variant="outline"
+          className="w-full mt-4 text-blue-600 border-blue-600 hover:bg-blue-50"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Añadir ubicación
+        </Button>
       </CardContent>
     </Card>
   );
