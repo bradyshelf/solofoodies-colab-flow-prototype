@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Info } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -7,11 +6,10 @@ import ParticipantsSection from '@/components/collaboration/ParticipantsSection'
 import DiscountSection from '@/components/collaboration/DiscountSection';
 import DaysSection from '@/components/collaboration/DaysSection';
 import CollaborationPreview from '@/components/collaboration/CollaborationPreview';
-
 const CreateCollaborationPageV2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // Form state - removed collaborationType
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [companionCount, setCompanionCount] = useState([2]);
@@ -32,46 +30,45 @@ const CreateCollaborationPageV2 = () => {
       setEditingId(location.state.editingId || null);
     }
   }, [location.state]);
-
-  const locations = [
-    { id: 'local-valencia', name: 'Local Valencia', address: 'Calle Colon, 27' },
-    { id: 'sucursal-barcelona', name: 'Sucursal Barcelona', address: 'Passeig de Gracia, 92' },
-    { id: 'sede-central', name: 'Sede Central', address: 'Calle Gran Via, 45' }
-  ];
-
+  const locations = [{
+    id: 'local-valencia',
+    name: 'Local Valencia',
+    address: 'Calle Colon, 27'
+  }, {
+    id: 'sucursal-barcelona',
+    name: 'Sucursal Barcelona',
+    address: 'Passeig de Gracia, 92'
+  }, {
+    id: 'sede-central',
+    name: 'Sede Central',
+    address: 'Calle Gran Via, 45'
+  }];
   const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-
   const toggleLocation = (locationId: string) => {
-    setSelectedLocations(prev => 
-      prev.includes(locationId)
-        ? prev.filter(id => id !== locationId)
-        : [...prev, locationId]
-    );
+    setSelectedLocations(prev => prev.includes(locationId) ? prev.filter(id => id !== locationId) : [...prev, locationId]);
   };
-
   const toggleDay = (day: string) => {
-    setSelectedDays(prev => 
-      prev.includes(day)
-        ? prev.filter(d => d !== day)
-        : [...prev, day]
-    );
+    setSelectedDays(prev => prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day]);
   };
-
   const handleBackNavigation = () => {
-    navigate('/collaborations', { replace: true });
+    navigate('/collaborations', {
+      replace: true
+    });
   };
-
   const handleCreateCollaboration = () => {
     const collaborationData = {
-      type: 'public', // Always public now
+      type: 'public',
+      // Always public now
       locations: selectedLocations,
       companionCount: companionCount[0],
       minFollowerCount: minFollowerCount[0],
-      discount: { value: discountValue[0], type: discountType },
+      discount: {
+        value: discountValue[0],
+        type: discountType
+      },
       availableDays: selectedDays,
       editingId
     };
-
     console.log(editingId ? 'Updating collaboration:' : 'Creating collaboration:', collaborationData);
 
     // Always navigate back to collaborations with the collaboration data
@@ -79,28 +76,26 @@ const CreateCollaborationPageV2 = () => {
       state: {
         newCollaboration: !editingId,
         updatedCollaboration: editingId,
-        collaborationType: 'public', // Always public
+        collaborationType: 'public',
+        // Always public
         selectedLocations,
         companionCount: companionCount[0],
         minFollowerCount: minFollowerCount[0],
-        discount: { value: discountValue[0], type: discountType },
+        discount: {
+          value: discountValue[0],
+          type: discountType
+        },
         availableDays: selectedDays,
         editingId
       }
     });
   };
-
   const isFormValid = selectedLocations.length > 0 && selectedDays.length > 0;
-
-  return (
-    <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10">
         <div className="flex items-center space-x-3">
-          <button 
-            onClick={handleBackNavigation}
-            className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center"
-          >
+          <button onClick={handleBackNavigation} className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center">
             <ArrowLeft className="w-4 h-4 text-gray-600" />
           </button>
           <h1 className="text-lg font-semibold text-gray-900">
@@ -111,7 +106,7 @@ const CreateCollaborationPageV2 = () => {
 
       <div className="px-3 py-3 max-w-7xl mx-auto">
         {/* Info Header */}
-        <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg py-[3px]">
           <div className="flex items-center space-x-3">
             <Info className="w-5 h-5 text-blue-600" />
             <div>
@@ -128,56 +123,24 @@ const CreateCollaborationPageV2 = () => {
           {/* Main Form - Grid layout on desktop/tablet */}
           <div className="flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <LocationSection
-                selectedLocations={selectedLocations}
-                locations={locations}
-                onLocationToggle={toggleLocation}
-              />
+              <LocationSection selectedLocations={selectedLocations} locations={locations} onLocationToggle={toggleLocation} />
 
-              <ParticipantsSection
-                companionCount={companionCount}
-                minFollowerCount={minFollowerCount}
-                onCompanionCountChange={setCompanionCount}
-                onMinFollowerCountChange={setMinFollowerCount}
-              />
+              <ParticipantsSection companionCount={companionCount} minFollowerCount={minFollowerCount} onCompanionCountChange={setCompanionCount} onMinFollowerCountChange={setMinFollowerCount} />
 
-              <DiscountSection
-                discountType={discountType}
-                discountValue={discountValue}
-                onDiscountTypeChange={setDiscountType}
-                onDiscountValueChange={setDiscountValue}
-              />
+              <DiscountSection discountType={discountType} discountValue={discountValue} onDiscountTypeChange={setDiscountType} onDiscountValueChange={setDiscountValue} />
 
               <div className="md:col-span-1">
-                <DaysSection
-                  selectedDays={selectedDays}
-                  days={days}
-                  onDayToggle={toggleDay}
-                />
+                <DaysSection selectedDays={selectedDays} days={days} onDayToggle={toggleDay} />
               </div>
             </div>
           </div>
 
           {/* Preview - Bottom on mobile, Right side on desktop */}
           <div className="lg:w-80 mt-2 lg:mt-0">
-            <CollaborationPreview
-              collaborationType="public"
-              selectedLocations={selectedLocations}
-              locations={locations}
-              companionCount={companionCount[0]}
-              minFollowerCount={minFollowerCount[0]}
-              discountType={discountType}
-              discountValue={discountValue[0]}
-              selectedDays={selectedDays}
-              isFormValid={isFormValid}
-              onCreateCollaboration={handleCreateCollaboration}
-              isEditMode={!!editingId}
-            />
+            <CollaborationPreview collaborationType="public" selectedLocations={selectedLocations} locations={locations} companionCount={companionCount[0]} minFollowerCount={minFollowerCount[0]} discountType={discountType} discountValue={discountValue[0]} selectedDays={selectedDays} isFormValid={isFormValid} onCreateCollaboration={handleCreateCollaboration} isEditMode={!!editingId} />
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default CreateCollaborationPageV2;
