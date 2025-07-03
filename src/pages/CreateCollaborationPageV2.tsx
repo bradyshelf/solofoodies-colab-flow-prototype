@@ -117,7 +117,7 @@ const CreateCollaborationPageV2 = () => {
         </div>
       </div>
 
-      <div className="px-3 py-3 max-w-7xl mx-auto">
+      <div className="px-3 py-3 max-w-4xl mx-auto">
         {/* Info Header */}
         <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg py-[7px]">
           <div className="flex items-center space-x-3">
@@ -131,31 +131,24 @@ const CreateCollaborationPageV2 = () => {
           </div>
         </div>
 
-        {/* Mobile: Single column, Tablet/Desktop: Grid + Preview */}
-        <div className="flex flex-col lg:flex-row gap-4">
-          {/* Main Form - Grid layout on desktop/tablet */}
-          <div className="flex-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <LocationSection selectedLocations={selectedLocations} locations={locations} onLocationToggle={toggleLocation} />
+        {/* Main Form - Two column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+          <LocationSection selectedLocations={selectedLocations} locations={locations} onLocationToggle={toggleLocation} />
 
-              <ParticipantsSection companionCount={companionCount} minFollowerCount={minFollowerCount} onCompanionCountChange={setCompanionCount} onMinFollowerCountChange={setMinFollowerCount} />
+          <ParticipantsSection companionCount={companionCount} minFollowerCount={minFollowerCount} onCompanionCountChange={setCompanionCount} onMinFollowerCountChange={setMinFollowerCount} />
 
-              <DiscountSection discountType={discountType} discountValue={discountValue} onDiscountTypeChange={setDiscountType} onDiscountValueChange={setDiscountValue} />
+          <DiscountSection discountType={discountType} discountValue={discountValue} onDiscountTypeChange={setDiscountType} onDiscountValueChange={setDiscountValue} />
 
-              <div className="md:col-span-1">
-                <DaysSection selectedDays={selectedDays} days={days} onDayToggle={toggleDay} />
-              </div>
+          <DaysSection selectedDays={selectedDays} days={days} onDayToggle={toggleDay} />
 
-              <div className="md:col-span-2">
-                <DescriptionSection description={description} onDescriptionChange={setDescription} />
-              </div>
-            </div>
+          <div className="md:col-span-2">
+            <DescriptionSection description={description} onDescriptionChange={setDescription} />
           </div>
+        </div>
 
-          {/* Preview - Bottom on mobile, Right side on desktop */}
-          <div className="lg:w-80 mt-2 lg:mt-0">
-            <CollaborationPreview collaborationType="public" selectedLocations={selectedLocations} locations={locations} companionCount={companionCount[0]} minFollowerCount={minFollowerCount[0]} discountType={discountType} discountValue={discountValue[0]} selectedDays={selectedDays} isFormValid={isFormValid} onCreateCollaboration={handleCreateCollaboration} isEditMode={!!editingId} />
-          </div>
+        {/* Preview - Always at bottom */}
+        <div className="w-full">
+          <CollaborationPreview collaborationType="public" selectedLocations={selectedLocations} locations={locations} companionCount={companionCount[0]} minFollowerCount={minFollowerCount[0]} discountType={discountType} discountValue={discountValue[0]} selectedDays={selectedDays} isFormValid={isFormValid} onCreateCollaboration={handleCreateCollaboration} isEditMode={!!editingId} />
         </div>
       </div>
     </div>
