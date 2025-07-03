@@ -1,7 +1,7 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
-import { Percent, DollarSign } from 'lucide-react';
+import { Percent, Euro } from 'lucide-react';
 
 interface DiscountSectionProps {
   discountType: 'percentage' | 'fixed';
@@ -33,9 +33,9 @@ const DiscountSection = ({
           {discountType === 'percentage' ? (
             <Percent className="w-5 h-5 text-orange-500" />
           ) : (
-            <DollarSign className="w-5 h-5 text-orange-500" />
+            <Euro className="w-5 h-5 text-orange-500" />
           )}
-          <h3 className="font-semibold text-gray-900">Descuento</h3>
+          <h3 className="font-semibold text-gray-900">Crédito</h3>
         </div>
         
         <div className="flex items-center justify-center gap-4 mb-3">
@@ -49,7 +49,7 @@ const DiscountSection = ({
             onClick={() => handleDiscountTypeChange('fixed')} 
             className={`p-3 rounded-lg text-sm font-medium flex items-center justify-center ${discountType === 'fixed' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}
           >
-            <DollarSign className="w-4 h-4" />
+            <Euro className="w-4 h-4" />
           </button>
         </div>
         
