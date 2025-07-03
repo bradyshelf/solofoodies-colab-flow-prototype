@@ -1,6 +1,7 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Globe, MapPin, Users, Percent, DollarSign, Clock, Check, UserCheck } from 'lucide-react';
+import { MapPin, Users, Percent, DollarSign, Clock, Check, UserCheck } from 'lucide-react';
 
 interface Location {
   id: string;
@@ -56,11 +57,6 @@ const CollaborationPreview = ({
         <CardContent className="p-4 px-[15px] py-[24px]">
           <h3 className="font-semibold text-gray-900 mb-4 text-base">Vista previa</h3>
           <div className="bg-gray-900 rounded-lg p-5 text-white space-y-3">
-            <div className="flex items-center space-x-2">
-              <Globe className="w-4 h-4 text-green-400" />
-              <span className="text-sm font-medium">Pública</span>
-            </div>
-
             {selectedLocations.length > 0 && (
               <div className="space-y-2">
                 {selectedLocations.slice(0, 2).map(locationId => {
