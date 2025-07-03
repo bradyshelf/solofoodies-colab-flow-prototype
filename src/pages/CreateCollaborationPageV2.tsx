@@ -1,8 +1,7 @@
 
 import { useState, useEffect } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Info } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import CollaborationTypeSection from '@/components/collaboration/CollaborationTypeSection';
 import LocationSection from '@/components/collaboration/LocationSection';
 import ParticipantsSection from '@/components/collaboration/ParticipantsSection';
 import DiscountSection from '@/components/collaboration/DiscountSection';
@@ -13,8 +12,7 @@ const CreateCollaborationPageV2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Form state
-  const [collaborationType, setCollaborationType] = useState<'public' | 'private'>('public');
+  // Form state - removed collaborationType
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [companionCount, setCompanionCount] = useState([2]);
   const [minFollowerCount, setMinFollowerCount] = useState([10000]);
@@ -26,7 +24,6 @@ const CreateCollaborationPageV2 = () => {
   // Pre-populate form if in edit mode
   useEffect(() => {
     if (location.state?.editMode) {
-      setCollaborationType(location.state.collaborationType || 'public');
       setSelectedLocations(location.state.selectedLocations || []);
       setCompanionCount([location.state.companionCount || 2]);
       setDiscountType(location.state.discount?.type || 'percentage');
@@ -61,14 +58,12 @@ const CreateCollaborationPageV2 = () => {
   };
 
   const handleBackNavigation = () => {
-    // When going back, we navigate without any state to avoid triggering updates
-    // This ensures the original collaboration remains unchanged in edit mode
     navigate('/collaborations', { replace: true });
   };
 
   const handleCreateCollaboration = () => {
     const collaborationData = {
-      type: collaborationType,
+      type: 'public', // Always public now
       locations: selectedLocations,
       companionCount: companionCount[0],
       minFollowerCount: minFollowerCount[0],
@@ -79,27 +74,12 @@ const CreateCollaborationPageV2 = () => {
 
     console.log(editingId ? 'Updating collaboration:' : 'Creating collaboration:', collaborationData);
 
-    // If it's a private collaboration and not in edit mode, go to foodie selection
-    if (collaborationType === 'private' && !editingId) {
-      navigate('/foodies/select', {
-        state: {
-          collaborationType,
-          selectedLocations,
-          companionCount: companionCount[0],
-          minFollowerCount: minFollowerCount[0],
-          discount: { value: discountValue[0], type: discountType },
-          availableDays: selectedDays
-        }
-      });
-      return;
-    }
-
-    // Otherwise, navigate back to collaborations with the collaboration data
+    // Always navigate back to collaborations with the collaboration data
     navigate('/collaborations', {
       state: {
         newCollaboration: !editingId,
         updatedCollaboration: editingId,
-        collaborationType,
+        collaborationType: 'public', // Always public
         selectedLocations,
         companionCount: companionCount[0],
         minFollowerCount: minFollowerCount[0],
@@ -130,16 +110,24 @@ const CreateCollaborationPageV2 = () => {
       </div>
 
       <div className="px-3 py-3 max-w-7xl mx-auto">
+        {/* Info Header */}
+        <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <div className="flex items-center space-x-3">
+            <Info className="w-5 h-5 text-blue-600" />
+            <div>
+              <h3 className="font-medium text-blue-900">Colaboración Pública</h3>
+              <p className="text-sm text-blue-700 mt-1">
+                Define las condiciones de tu colaboración y recibe solicitudes de foodies interesados
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Mobile: Single column, Tablet/Desktop: Grid + Preview */}
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Main Form - Grid layout on desktop/tablet */}
           <div className="flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <CollaborationTypeSection
-                collaborationType={collaborationType}
-                onCollaborationTypeChange={setCollaborationType}
-              />
-
               <LocationSection
                 selectedLocations={selectedLocations}
                 locations={locations}
@@ -160,7 +148,7 @@ const CreateCollaborationPageV2 = () => {
                 onDiscountValueChange={setDiscountValue}
               />
 
-              <div className="md:col-span-2">
+              <div className="md:col-span-1">
                 <DaysSection
                   selectedDays={selectedDays}
                   days={days}
@@ -173,7 +161,7 @@ const CreateCollaborationPageV2 = () => {
           {/* Preview - Bottom on mobile, Right side on desktop */}
           <div className="lg:w-80 mt-2 lg:mt-0">
             <CollaborationPreview
-              collaborationType={collaborationType}
+              collaborationType="public"
               selectedLocations={selectedLocations}
               locations={locations}
               companionCount={companionCount[0]}
