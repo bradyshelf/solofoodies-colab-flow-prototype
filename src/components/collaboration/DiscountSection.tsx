@@ -1,7 +1,7 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Percent, DollarSign } from 'lucide-react';
+
 interface DiscountSectionProps {
   discountType: 'percentage' | 'fixed';
   discountValue: number[];
@@ -25,21 +25,30 @@ const DiscountSection = ({
     }
     onDiscountTypeChange(type);
   };
-  return <Card>
+  return (
+    <Card>
       <CardContent className="p-4">
         <div className="flex items-center space-x-3 mb-4">
-          <Percent className="w-5 h-5 text-orange-500" />
+          {discountType === 'percentage' ? (
+            <Percent className="w-5 h-5 text-orange-500" />
+          ) : (
+            <DollarSign className="w-5 h-5 text-orange-500" />
+          )}
           <h3 className="font-semibold text-gray-900">Descuento</h3>
         </div>
         
         <div className="flex items-center justify-center gap-4 mb-4">
-          <button onClick={() => handleDiscountTypeChange('percentage')} className={`px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-2 ${discountType === 'percentage' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
+          <button 
+            onClick={() => handleDiscountTypeChange('percentage')} 
+            className={`p-3 rounded-lg text-sm font-medium flex items-center justify-center ${discountType === 'percentage' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}
+          >
             <Percent className="w-4 h-4" />
-            <span>Porcentaje</span>
           </button>
-          <button onClick={() => handleDiscountTypeChange('fixed')} className={`px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-2 ${discountType === 'fixed' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
+          <button 
+            onClick={() => handleDiscountTypeChange('fixed')} 
+            className={`p-3 rounded-lg text-sm font-medium flex items-center justify-center ${discountType === 'fixed' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}
+          >
             <DollarSign className="w-4 h-4" />
-            <span>Cantidad fija</span>
           </button>
         </div>
         
@@ -52,6 +61,7 @@ const DiscountSection = ({
           <Slider value={discountValue} onValueChange={onDiscountValueChange} max={discountType === 'percentage' ? 100 : 200} min={discountType === 'percentage' ? 5 : 10} step={discountType === 'percentage' ? 5 : 5} className="w-full" />
         </div>
       </CardContent>
-    </Card>;
+    </Card>
+  );
 };
 export default DiscountSection;
