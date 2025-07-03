@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Percent, Euro } from 'lucide-react';
@@ -9,6 +8,7 @@ interface DiscountSectionProps {
   onDiscountTypeChange: (type: 'percentage' | 'fixed') => void;
   onDiscountValueChange: (value: number[]) => void;
 }
+
 const DiscountSection = ({
   discountType,
   discountValue,
@@ -26,6 +26,7 @@ const DiscountSection = ({
     }
     onDiscountTypeChange(type);
   };
+
   return (
     <Card>
       <CardContent className="p-3">
@@ -59,10 +60,18 @@ const DiscountSection = ({
               {discountValue[0]}{discountType === 'percentage' ? '%' : '€'}
             </div>
           </div>
-          <Slider value={discountValue} onValueChange={onDiscountValueChange} max={discountType === 'percentage' ? 100 : 200} min={discountType === 'percentage' ? 5 : 10} step={discountType === 'percentage' ? 5 : 5} className="w-full" />
+          <Slider 
+            value={discountValue} 
+            onValueChange={onDiscountValueChange} 
+            max={discountType === 'percentage' ? 100 : 200} 
+            min={discountType === 'percentage' ? 5 : 10} 
+            step={discountType === 'percentage' ? 5 : 5} 
+            className="w-full" 
+          />
         </div>
       </CardContent>
     </Card>
   );
 };
+
 export default DiscountSection;
