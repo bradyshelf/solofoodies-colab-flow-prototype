@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Clock } from 'lucide-react';
 interface DaysSectionProps {
@@ -16,9 +17,9 @@ const DaysSection = ({
           <Clock className="w-5 h-5 text-orange-500" />
           <h3 className="font-semibold text-gray-900">Días disponibles ({selectedDays.length})</h3>
         </div>
-        <div className="grid grid-cols-4 sm:grid-cols-2 gap-2">
-          {days.map(day => <button key={day} onClick={() => onDayToggle(day)} className={`p-2 rounded-lg text-sm font-medium transition-all ${selectedDays.includes(day) ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
-              {day.slice(0, 3)}
+        <div className="grid grid-cols-2 gap-2">
+          {days.map(day => <button key={day} onClick={() => onDayToggle(day)} className={`p-3 rounded-lg text-sm font-medium transition-all ${selectedDays.includes(day) ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+              {day}
             </button>)}
         </div>
       </CardContent>
