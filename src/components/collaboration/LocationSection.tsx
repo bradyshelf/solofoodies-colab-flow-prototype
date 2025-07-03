@@ -50,7 +50,7 @@ const LocationSection = ({ selectedLocations, locations, onLocationToggle }: Loc
         </div>
         
         {shouldScroll ? (
-          <div className="h-64 overflow-y-auto scrollbar-hide">
+          <ScrollArea className="h-64">
             <div className="space-y-3 pr-4">
               {locations.map((location) => (
                 <button
@@ -78,7 +78,7 @@ const LocationSection = ({ selectedLocations, locations, onLocationToggle }: Loc
                 </button>
               ))}
             </div>
-          </div>
+          </ScrollArea>
         ) : (
           <div className="space-y-3">
             {locations.map((location) => (
