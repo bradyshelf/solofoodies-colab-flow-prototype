@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MapPin, Users, Percent, DollarSign, Clock, Check, UserCheck } from 'lucide-react';
@@ -86,7 +85,7 @@ const CollaborationPreview = ({
 
             <div className="flex items-center space-x-2">
               <Users className="w-4 h-4 text-orange-400" />
-              <span className="text-sm">{companionCount} acompañantes máx.</span>
+              <span className="text-sm">Foodie +{companionCount} acompañantes máx.</span>
             </div>
 
             <div className="flex items-center space-x-2">
