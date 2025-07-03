@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { RestaurantProvider } from "@/contexts/RestaurantContext";
 import CollaborationsPage from "./pages/CollaborationsPage";
 import CreateCollaborationPageV2 from "./pages/CreateCollaborationPageV2";
-import FoodieSelectionPage from "./pages/FoodieSelectionPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,7 +22,6 @@ const App = () => (
             <Route path="/" element={<Navigate to="/collaborations" replace />} />
             <Route path="/collaborations" element={<CollaborationsPage />} />
             <Route path="/collaborations/create" element={<CreateCollaborationPageV2 />} />
-            <Route path="/foodies/select" element={<FoodieSelectionPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </RestaurantProvider>
