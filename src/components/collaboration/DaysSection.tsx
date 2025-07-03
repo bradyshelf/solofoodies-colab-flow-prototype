@@ -29,7 +29,7 @@ const DaysSection = ({
                 selectedDays.includes(day)
                   ? 'bg-gray-900 text-white'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              } ${index === 6 ? 'col-span-2 mx-auto max-w-[calc(50%-0.25rem)]' : ''}`}
+              } ${index === 6 ? 'col-span-2 justify-self-center w-1/2' : ''}`}
             >
               {day}
             </button>
