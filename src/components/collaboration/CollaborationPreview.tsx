@@ -80,13 +80,13 @@ const CollaborationPreview = ({
             )}
 
             <div className="flex items-center space-x-2">
-              <Users className="w-4 h-4 text-orange-400" />
-              <span className="text-sm">{companionCount} acompañantes máx.</span>
+              <UserCheck className="w-4 h-4 text-orange-400" />
+              <span className="text-sm">Mín. {formatFollowerCount(minFollowerCount)} seguidores</span>
             </div>
 
             <div className="flex items-center space-x-2">
-              <UserCheck className="w-4 h-4 text-orange-400" />
-              <span className="text-sm">Mín. {formatFollowerCount(minFollowerCount)} seguidores</span>
+              <Users className="w-4 h-4 text-orange-400" />
+              <span className="text-sm">{companionCount} acompañantes máx.</span>
             </div>
 
             <div className="flex items-center space-x-2">
