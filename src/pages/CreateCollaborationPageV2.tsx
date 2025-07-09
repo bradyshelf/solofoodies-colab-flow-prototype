@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Info } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -107,7 +106,7 @@ const CreateCollaborationPageV2 = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="w-full max-w-4xl mx-auto">
+      <div className="w-full mx-auto md:max-w-4xl">
         {/* Header */}
         <div className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10">
           <div className="flex items-center space-x-3">
