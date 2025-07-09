@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Info } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -106,49 +107,51 @@ const CreateCollaborationPageV2 = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10">
-        <div className="flex items-center space-x-3">
-          <button onClick={handleBackNavigation} className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center">
-            <ArrowLeft className="w-4 h-4 text-gray-600" />
-          </button>
-          <h1 className="text-lg font-semibold text-gray-900">
-            {editingId ? 'Editar Colaboración' : 'Crear Colaboración'}
-          </h1>
-        </div>
-      </div>
-
-      <div className="px-3 py-3 max-w-2xl mx-auto">
-        {/* Info Header */}
-        <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg py-[7px]">
+      <div className="w-full max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10">
           <div className="flex items-center space-x-3">
-            <Info className="w-5 h-5 text-blue-600" />
-            <div>
-              <p className="text-sm text-blue-700 mt-1">
-                Define las condiciones de tu colaboración y recibe solicitudes de foodies interesados
-              </p>
-            </div>
+            <button onClick={handleBackNavigation} className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center">
+              <ArrowLeft className="w-4 h-4 text-gray-600" />
+            </button>
+            <h1 className="text-lg font-semibold text-gray-900">
+              {editingId ? 'Editar Colaboración' : 'Crear Colaboración'}
+            </h1>
           </div>
         </div>
 
-        {/* Main Form - Single column layout */}
-        <div className="space-y-3 mb-4">
-          <LocationSection selectedLocations={selectedLocations} locations={locations} onLocationToggle={toggleLocation} />
+        <div className="px-3 py-3">
+          {/* Info Header */}
+          <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg py-[7px]">
+            <div className="flex items-center space-x-3">
+              <Info className="w-5 h-5 text-blue-600" />
+              <div>
+                <p className="text-sm text-blue-700 mt-1">
+                  Define las condiciones de tu colaboración y recibe solicitudes de foodies interesados
+                </p>
+              </div>
+            </div>
+          </div>
 
-          <FollowersSection minFollowerCount={minFollowerCount} onMinFollowerCountChange={setMinFollowerCount} />
+          {/* Main Form - Single column layout */}
+          <div className="space-y-3 mb-4">
+            <LocationSection selectedLocations={selectedLocations} locations={locations} onLocationToggle={toggleLocation} />
 
-          <ParticipantsSection companionCount={companionCount} onCompanionCountChange={setCompanionCount} />
+            <FollowersSection minFollowerCount={minFollowerCount} onMinFollowerCountChange={setMinFollowerCount} />
 
-          <DiscountSection discountType={discountType} discountValue={discountValue} onDiscountTypeChange={setDiscountType} onDiscountValueChange={setDiscountValue} />
+            <ParticipantsSection companionCount={companionCount} onCompanionCountChange={setCompanionCount} />
 
-          <DaysSection selectedDays={selectedDays} days={days} onDayToggle={toggleDay} />
+            <DiscountSection discountType={discountType} discountValue={discountValue} onDiscountTypeChange={setDiscountType} onDiscountValueChange={setDiscountValue} />
 
-          <DescriptionSection description={description} onDescriptionChange={setDescription} />
-        </div>
+            <DaysSection selectedDays={selectedDays} days={days} onDayToggle={toggleDay} />
 
-        {/* Preview - Always at bottom */}
-        <div className="w-full">
-          <CollaborationPreview collaborationType="public" selectedLocations={selectedLocations} locations={locations} companionCount={companionCount[0]} minFollowerCount={minFollowerCount[0]} discountType={discountType} discountValue={discountValue[0]} selectedDays={selectedDays} isFormValid={isFormValid} onCreateCollaboration={handleCreateCollaboration} isEditMode={!!editingId} />
+            <DescriptionSection description={description} onDescriptionChange={setDescription} />
+          </div>
+
+          {/* Preview - Always at bottom */}
+          <div className="w-full">
+            <CollaborationPreview collaborationType="public" selectedLocations={selectedLocations} locations={locations} companionCount={companionCount[0]} minFollowerCount={minFollowerCount[0]} discountType={discountType} discountValue={discountValue[0]} selectedDays={selectedDays} isFormValid={isFormValid} onCreateCollaboration={handleCreateCollaboration} isEditMode={!!editingId} />
+          </div>
         </div>
       </div>
     </div>
