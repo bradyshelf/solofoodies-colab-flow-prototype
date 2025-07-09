@@ -1,7 +1,9 @@
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Utensils, Users, MapPin, Star, ArrowRight, CheckCircle, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+
 const Homepage = () => {
   const navigate = useNavigate();
   const handleGetStarted = () => {
@@ -13,26 +15,27 @@ const Homepage = () => {
   const handleCreatorSignUp = () => {
     navigate('/auth?mode=signup&role=foodie');
   };
-  return <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="px-4 py-6 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
-              <Utensils className="w-5 h-5 text-white" />
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="w-full max-w-4xl mx-auto">
+        {/* Header */}
+        <header className="px-4 py-6 md:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
+                <Utensils className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-gray-900">Solo Foodies</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">Solo Foodies</span>
+            <Button variant="outline" onClick={handleGetStarted} className="hidden md:flex">
+              Sign In
+            </Button>
           </div>
-          <Button variant="outline" onClick={handleGetStarted} className="hidden md:flex">
-            Sign In
-          </Button>
-        </div>
-      </header>
+        </header>
 
-      {/* Hero Section */}
-      <section className="px-4 py-12 md:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-4xl mx-auto">
+        {/* Hero Section */}
+        <section className="px-4 py-12 md:px-6 lg:px-8">
+          <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
               Connect Food Creators
               <span className="text-red-500"> with Local Restaurants</span>
@@ -45,12 +48,10 @@ const Homepage = () => {
               Sign In
             </Button>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Features Section */}
-      <section className="px-4 py-16 bg-gray-50 md:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        {/* Features Section */}
+        <section className="px-4 py-16 bg-gray-50 md:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Perfect for Everyone
@@ -126,12 +127,10 @@ const Homepage = () => {
               </CardContent>
             </Card>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* How It Works */}
-      <section className="px-4 py-16 md:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        {/* How It Works */}
+        <section className="px-4 py-16 md:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               How It Works
@@ -166,24 +165,20 @@ const Homepage = () => {
               <p className="text-gray-600">Create amazing content and grow together</p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Pricing Section */}
-      <section className="px-4 py-16 bg-gray-50 md:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        {/* Pricing Section */}
+        <section className="px-4 py-16 bg-gray-50 md:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pricing for Restaurants</h2>
-            
           </div>
 
-          <div className="flex justify-center max-w-5xl mx-auto">
+          <div className="flex justify-center">
             {/* Starter Plan */}
             <Card className="relative border-2 border-gray-200 shadow-lg max-w-sm w-full">
               <CardContent className="p-8">
                 <div className="text-center mb-6">
-                  
-                  <div className="text-4xl font-bold text-gray-900 mb-1">$29</div>
+                  <div className="text-4xl font-bold text-gray-900 mb-1">€29</div>
                   <p className="text-gray-600">per month</p>
                 </div>
                 <ul className="space-y-4 mb-8">
@@ -216,12 +211,10 @@ const Homepage = () => {
               Food creators can join and use the platform completely free!
             </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="px-4 py-8 border-t border-gray-200 md:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        {/* Footer */}
+        <footer className="px-4 py-8 border-t border-gray-200 md:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center gap-2 mb-4 md:mb-0">
               <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
@@ -233,8 +226,10 @@ const Homepage = () => {
               © 2024 Solo Foodies. All rights reserved.
             </p>
           </div>
-        </div>
-      </footer>
-    </div>;
+        </footer>
+      </div>
+    </div>
+  );
 };
+
 export default Homepage;
