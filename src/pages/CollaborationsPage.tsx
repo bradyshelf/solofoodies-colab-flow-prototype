@@ -182,13 +182,6 @@ const CollaborationsPage = () => {
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-2">
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                collab.type === 'public' 
-                  ? 'bg-green-100 text-green-800' 
-                  : 'bg-blue-100 text-blue-800'
-              }`}>
-                {collab.type === 'public' ? 'Pública' : 'Privada'}
-              </span>
               {collab.isPaused && (
                 <span className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                   Pausada
@@ -196,7 +189,7 @@ const CollaborationsPage = () => {
               )}
             </div>
             <h3 className="font-semibold text-gray-900 mb-1">
-              Colaboración {collab.type === 'public' ? 'pública' : 'privada'}
+              Colaboración
             </h3>
             {collab.description && (
               <p className="text-sm text-gray-600 mb-2">{collab.description}</p>
