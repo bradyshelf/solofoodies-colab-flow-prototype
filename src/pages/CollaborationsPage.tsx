@@ -1,6 +1,8 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Search, Plus, MapPin, Users, Calendar, Percent, Clock, Edit, Trash2, Pause, Play } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -215,13 +217,21 @@ const CollaborationsPage = () => {
                   <Play className="w-4 h-4 text-green-500" />
                 </button>
               ) : (
-                <button
-                  onClick={() => handlePauseCollaboration(collab.id)}
-                  className="p-1 rounded-full hover:bg-gray-100 transition-colors"
-                  title="Pausar colaboración"
-                >
-                  <Pause className="w-4 h-4 text-yellow-500" />
-                </button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => handlePauseCollaboration(collab.id)}
+                      className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+                    >
+                      <Pause className="w-4 h-4 text-yellow-500" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-sm">
+                      Pausar colaboración oculta la oferta de los foodies pero permite reactivarla más tarde, a diferencia de eliminarla permanentemente.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
               )}
               <button
                 onClick={() => handleDeleteCollaboration(collab.id)}
