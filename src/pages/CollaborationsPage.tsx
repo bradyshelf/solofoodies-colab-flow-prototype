@@ -1,7 +1,8 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Search, Plus, MapPin, Users, Calendar, Percent, Clock, Edit, Trash2 } from 'lucide-react';
+import { Search, Plus, MapPin, Users, Calendar, Percent, Clock, Edit, Trash2, Pause, Play } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { format } from 'date-fns';
 
@@ -15,6 +16,7 @@ interface Collaboration {
   availableDays: string[];
   description?: string;
   createdAt: Date;
+  isPaused?: boolean;
 }
 
 const CollaborationsPage = () => {
@@ -125,6 +127,134 @@ const CollaborationsPage = () => {
     setCollaborations(prev => prev.filter(collab => collab.id !== collabId));
   };
 
+  const handlePauseCollaboration = (collabId: string) => {
+    setCollaborations(prev => 
+      prev.map(collab => 
+        collab.id === collabId 
+          ? { ...collab, isPaused: true }
+          : collab
+      )
+    );
+  };
+
+  const handleReactivateCollaboration = (collabId: string) => {
+    setCollaborations(prev => 
+      prev.map(collab => 
+        collab.id === collabId 
+          ? { ...collab, isPaused: false }
+          : collab
+      )
+    );
+  };
+
+  const activeCollaborations = collaborations.filter(collab => !collab.isPaused);
+  const pausedCollaborations = collaborations.filter(collab => collab.isPaused);
+
+  const renderCollaborationCard = (collab: Collaboration) => (
+    <Card key={collab.id} className="border border-gray-200">
+      <CardContent className="p-4">
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex-1">
+            <div className="flex items-center space-x-2 mb-2">
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                collab.type === 'public' 
+                  ? 'bg-green-100 text-green-800' 
+                  : 'bg-blue-100 text-blue-800'
+              }`}>
+                {collab.type === 'public' ? 'Pública' : 'Privada'}
+              </span>
+              {collab.isPaused && (
+                <span className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                  Pausada
+                </span>
+              )}
+            </div>
+            <h3 className="font-semibold text-gray-900 mb-1">
+              Colaboración {collab.type === 'public' ? 'pública' : 'privada'}
+            </h3>
+            {collab.description && (
+              <p className="text-sm text-gray-600 mb-2">{collab.description}</p>
+            )}
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="text-xs text-gray-500">
+              {format(collab.createdAt, 'dd/MM/yy')}
+            </span>
+            <div className="flex space-x-1">
+              <button
+                onClick={() => handleEditCollaboration(collab)}
+                className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <Edit className="w-4 h-4 text-gray-500" />
+              </button>
+              {collab.isPaused ? (
+                <button
+                  onClick={() => handleReactivateCollaboration(collab.id)}
+                  className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+                  title="Reactivar colaboración"
+                >
+                  <Play className="w-4 h-4 text-green-500" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => handlePauseCollaboration(collab.id)}
+                  className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+                  title="Pausar colaboración"
+                >
+                  <Pause className="w-4 h-4 text-yellow-500" />
+                </button>
+              )}
+              <button
+                onClick={() => handleDeleteCollaboration(collab.id)}
+                className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <Trash2 className="w-4 h-4 text-gray-500" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          {/* Location */}
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <MapPin className="w-4 h-4" />
+            <span>{collab.locations.map(getLocationName).join(', ')}</span>
+          </div>
+
+          {/* Companions */}
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <Users className="w-4 h-4" />
+            <span>{collab.companionCount} acompañantes máx.</span>
+          </div>
+
+          {/* Date Range */}
+          {collab.dateRange && (
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <Calendar className="w-4 h-4" />
+              <span>{formatDateRange(collab.dateRange)}</span>
+            </div>
+          )}
+
+          {/* Discount */}
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <Percent className="w-4 h-4" />
+            <span>
+              {collab.discount.value}{collab.discount.type === 'percentage' ? '%' : '€'} Descuento
+            </span>
+          </div>
+
+          {/* Available Days */}
+          {collab.availableDays.length > 0 && (
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <Clock className="w-4 h-4" />
+              <span>{collab.availableDays.join(', ').toLowerCase()}</span>
+            </div>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <div className="min-h-screen bg-white pb-24 overflow-y-auto">
       <div className="w-full mx-auto md:max-w-4xl">
@@ -137,12 +267,10 @@ const CollaborationsPage = () => {
         </div>
 
         <div className="px-4 py-6">
-          {/* Mis Colaboraciones Section */}
-          <div className="mb-6">
-            <h2 className="text-lg font-semibold mb-4">Mis Colaboraciones ({collaborations.length})</h2>
-            
-            {collaborations.length === 0 ? (
-              /* Empty State Card */
+          {collaborations.length === 0 ? (
+            /* Empty State */
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold mb-4">Mis Colaboraciones (0)</h2>
               <Card className="bg-gray-50 border-gray-200">
                 <CardContent className="p-8 text-center">
                   <div className="text-gray-500 mb-4">
@@ -157,94 +285,34 @@ const CollaborationsPage = () => {
                   </button>
                 </CardContent>
               </Card>
-            ) : (
-              /* Collaborations List */
-              <div className="space-y-4">
-                {collaborations.map((collab) => (
-                  <Card key={collab.id} className="border border-gray-200">
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-2 mb-2">
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                              collab.type === 'public' 
-                                ? 'bg-green-100 text-green-800' 
-                                : 'bg-blue-100 text-blue-800'
-                            }`}>
-                              {collab.type === 'public' ? 'Pública' : 'Privada'}
-                            </span>
-                          </div>
-                          <h3 className="font-semibold text-gray-900 mb-1">
-                            Colaboración {collab.type === 'public' ? 'pública' : 'privada'}
-                          </h3>
-                          {collab.description && (
-                            <p className="text-sm text-gray-600 mb-2">{collab.description}</p>
-                          )}
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-xs text-gray-500">
-                            {format(collab.createdAt, 'dd/MM/yy')}
-                          </span>
-                          <div className="flex space-x-1">
-                            <button
-                              onClick={() => handleEditCollaboration(collab)}
-                              className="p-1 rounded-full hover:bg-gray-100 transition-colors"
-                            >
-                              <Edit className="w-4 h-4 text-gray-500" />
-                            </button>
-                            <button
-                              onClick={() => handleDeleteCollaboration(collab.id)}
-                              className="p-1 rounded-full hover:bg-gray-100 transition-colors"
-                            >
-                              <Trash2 className="w-4 h-4 text-gray-500" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+            </div>
+          ) : (
+            <>
+              {/* Active Collaborations Section */}
+              {activeCollaborations.length > 0 && (
+                <div className="mb-6">
+                  <h2 className="text-lg font-semibold mb-4">
+                    Colaboraciones Activas ({activeCollaborations.length})
+                  </h2>
+                  <div className="space-y-4">
+                    {activeCollaborations.map(renderCollaborationCard)}
+                  </div>
+                </div>
+              )}
 
-                      <div className="space-y-2">
-                        {/* Location */}
-                        <div className="flex items-center space-x-2 text-sm text-gray-600">
-                          <MapPin className="w-4 h-4" />
-                          <span>{collab.locations.map(getLocationName).join(', ')}</span>
-                        </div>
-
-                        {/* Companions */}
-                        <div className="flex items-center space-x-2 text-sm text-gray-600">
-                          <Users className="w-4 h-4" />
-                          <span>{collab.companionCount} acompañantes máx.</span>
-                        </div>
-
-                        {/* Date Range */}
-                        {collab.dateRange && (
-                          <div className="flex items-center space-x-2 text-sm text-gray-600">
-                            <Calendar className="w-4 h-4" />
-                            <span>{formatDateRange(collab.dateRange)}</span>
-                          </div>
-                        )}
-
-                        {/* Discount */}
-                        <div className="flex items-center space-x-2 text-sm text-gray-600">
-                          <Percent className="w-4 h-4" />
-                          <span>
-                            {collab.discount.value}{collab.discount.type === 'percentage' ? '%' : '€'} Descuento
-                          </span>
-                        </div>
-
-                        {/* Available Days */}
-                        {collab.availableDays.length > 0 && (
-                          <div className="flex items-center space-x-2 text-sm text-gray-600">
-                            <Clock className="w-4 h-4" />
-                            <span>{collab.availableDays.join(', ').toLowerCase()}</span>
-                          </div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
-          </div>
+              {/* Paused Collaborations Section */}
+              {pausedCollaborations.length > 0 && (
+                <div className="mb-6">
+                  <h2 className="text-lg font-semibold mb-4">
+                    Colaboraciones Pausadas ({pausedCollaborations.length})
+                  </h2>
+                  <div className="space-y-4">
+                    {pausedCollaborations.map(renderCollaborationCard)}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
 
