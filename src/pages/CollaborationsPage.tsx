@@ -5,6 +5,7 @@ import { Search, Plus, MapPin, Users, Calendar, Percent, Clock, Edit, Trash2, Pa
 import { useNavigate, useLocation } from 'react-router-dom';
 import { format } from 'date-fns';
 import PauseCollaborationDialog from '@/components/PauseCollaborationDialog';
+import DeleteCollaborationDialog from '@/components/DeleteCollaborationDialog';
 
 interface Collaboration {
   id: string;
@@ -22,6 +23,7 @@ interface Collaboration {
 const CollaborationsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [pauseDialogOpen, setPauseDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedCollabId, setSelectedCollabId] = useState<string | null>(null);
   const [collaborations, setCollaborations] = useState<Collaboration[]>([
     {
@@ -182,7 +184,16 @@ const CollaborationsPage = () => {
   };
 
   const handleDeleteCollaboration = (collabId: string) => {
-    setCollaborations(prev => prev.filter(collab => collab.id !== collabId));
+    setSelectedCollabId(collabId);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDeleteCollaboration = () => {
+    if (selectedCollabId) {
+      setCollaborations(prev => prev.filter(collab => collab.id !== selectedCollabId));
+    }
+    setDeleteDialogOpen(false);
+    setSelectedCollabId(null);
   };
 
   const activeCollaborations = collaborations.filter(collab => !collab.isPaused);
@@ -354,6 +365,16 @@ const CollaborationsPage = () => {
           setSelectedCollabId(null);
         }}
         onConfirm={confirmPauseCollaboration}
+      />
+
+      {/* Delete Confirmation Dialog */}
+      <DeleteCollaborationDialog
+        isOpen={deleteDialogOpen}
+        onClose={() => {
+          setDeleteDialogOpen(false);
+          setSelectedCollabId(null);
+        }}
+        onConfirm={confirmDeleteCollaboration}
       />
 
       {/* Fixed Create Collaboration Button */}
