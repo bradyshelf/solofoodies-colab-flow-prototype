@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -20,34 +21,7 @@ interface Collaboration {
 
 const CollaborationsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [collaborations, setCollaborations] = useState<Collaboration[]>([
-    {
-      id: '1',
-      type: 'public',
-      locations: ['local-valencia', 'local-madrid'],
-      companionCount: 3,
-      discount: { value: 20, type: 'percentage' },
-      dateRange: { 
-        from: new Date('2024-01-15'), 
-        to: new Date('2024-02-15') 
-      },
-      availableDays: ['Lunes', 'Martes', 'Miércoles'],
-      description: 'Colaboración para promocionar nuestro nuevo menú mediterráneo',
-      createdAt: new Date('2024-01-01'),
-      isPaused: false
-    },
-    {
-      id: '2',
-      type: 'private',
-      locations: ['local-barcelona'],
-      companionCount: 2,
-      discount: { value: 50, type: 'fixed' },
-      availableDays: ['Viernes', 'Sábado', 'Domingo'],
-      description: 'Colaboración exclusiva para influencers de cocina catalana',
-      createdAt: new Date('2024-01-10'),
-      isPaused: false
-    }
-  ]);
+  const [collaborations, setCollaborations] = useState<Collaboration[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
 
