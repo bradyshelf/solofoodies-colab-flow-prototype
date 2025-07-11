@@ -1,6 +1,8 @@
 
+import { useState } from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { X, Trash2 } from 'lucide-react';
 
 interface DeleteCollaborationDialogProps {
@@ -10,15 +12,32 @@ interface DeleteCollaborationDialogProps {
 }
 
 const DeleteCollaborationDialog = ({ isOpen, onClose, onConfirm }: DeleteCollaborationDialogProps) => {
+  const [confirmationText, setConfirmationText] = useState('');
+  const confirmationPhrase = 'ELIMINAR';
+
+  const isConfirmationValid = confirmationText === confirmationPhrase;
+
+  const handleConfirm = () => {
+    if (isConfirmationValid) {
+      onConfirm();
+      setConfirmationText('');
+    }
+  };
+
+  const handleClose = () => {
+    setConfirmationText('');
+    onClose();
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold text-gray-900">Eliminar colaboración</h2>
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={onClose}
+            onClick={handleClose}
             className="h-6 w-6 rounded-full"
           >
             <X className="h-4 w-4" />
@@ -35,33 +54,51 @@ const DeleteCollaborationDialog = ({ isOpen, onClose, onConfirm }: DeleteCollabo
 
           {/* Question */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
               ¿Eliminar esta colaboración?
             </h3>
+            <p className="text-sm text-gray-600">
+              Esta acción no se puede deshacer
+            </p>
           </div>
 
           {/* Explanation Box */}
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-left">
-            <ul className="text-sm text-gray-600 space-y-2">
-              <li>• Esta acción no se puede deshacer</li>
+            <ul className="text-sm text-red-600 space-y-1">
               <li>• Se eliminará permanentemente la colaboración</li>
               <li>• Se perderán todos los datos y solicitudes relacionadas</li>
               <li>• Los foodies que tenían esta colaboración guardada ya no podrán acceder a ella</li>
+              <li>• Esta acción es irreversible</li>
             </ul>
+          </div>
+
+          {/* Confirmation Input */}
+          <div className="text-left">
+            <p className="text-sm text-gray-700 mb-2">
+              Para confirmar, escribe <span className="font-semibold text-red-600">{confirmationPhrase}</span> en el campo de abajo:
+            </p>
+            <Input
+              type="text"
+              value={confirmationText}
+              onChange={(e) => setConfirmationText(e.target.value)}
+              placeholder="Escribe la frase de confirmación"
+              className="w-full"
+            />
           </div>
 
           {/* Action Buttons */}
           <div className="flex space-x-3 pt-4">
             <Button
               variant="outline"
-              onClick={onClose}
+              onClick={handleClose}
               className="flex-1"
             >
               Cancelar
             </Button>
             <Button
-              onClick={onConfirm}
-              className="flex-1 bg-red-500 hover:bg-red-600 text-white"
+              onClick={handleConfirm}
+              disabled={!isConfirmationValid}
+              className="flex-1 bg-red-500 hover:bg-red-600 text-white disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
               Eliminar permanentemente
             </Button>
