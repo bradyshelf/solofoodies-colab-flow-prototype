@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Search, Plus, MapPin, Users, Calendar, Percent, Clock, Edit, Trash2, Pause, Play } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Search, Plus, MapPin, Users, Calendar, Percent, Clock, Edit, Trash2, Pause, Play, ChevronDown } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { format } from 'date-fns';
 import PauseCollaborationDialog from '@/components/PauseCollaborationDialog';
@@ -25,6 +26,7 @@ const CollaborationsPage = () => {
   const [pauseDialogOpen, setPauseDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedCollabId, setSelectedCollabId] = useState<string | null>(null);
+  const [pausedSectionOpen, setPausedSectionOpen] = useState(false);
   const [collaborations, setCollaborations] = useState<Collaboration[]>([
     {
       id: '1',
@@ -344,12 +346,24 @@ const CollaborationsPage = () => {
               {/* Paused Collaborations Section */}
               {pausedCollaborations.length > 0 && (
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold mb-4">
-                    Colaboraciones Pausadas ({pausedCollaborations.length})
-                  </h2>
-                  <div className="space-y-4">
-                    {pausedCollaborations.map(renderCollaborationCard)}
-                  </div>
+                  <Collapsible open={pausedSectionOpen} onOpenChange={setPausedSectionOpen}>
+                    <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md mb-4">
+                      <h2 className="text-lg font-semibold text-gray-900">
+                        Colaboraciones Pausadas ({pausedCollaborations.length})
+                      </h2>
+                      <ChevronDown 
+                        className={`h-5 w-5 text-gray-500 transition-transform ${
+                          pausedSectionOpen ? 'transform rotate-180' : ''
+                        }`} 
+                      />
+                    </CollapsibleTrigger>
+                    
+                    <CollapsibleContent>
+                      <div className="space-y-4">
+                        {pausedCollaborations.map(renderCollaborationCard)}
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
                 </div>
               )}
             </>
